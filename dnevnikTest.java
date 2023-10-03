@@ -3,10 +3,7 @@ package dnevnikRu;
 import javax.swing.*;
 import javax.swing.border.Border;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.awt.event.FocusEvent;
-import java.awt.event.FocusListener;
+import java.awt.event.*;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.time.Duration;
@@ -84,7 +81,7 @@ public class dnevnikTest implements ActionListener, FocusListener {
         loginText.addFocusListener(this);
         passwordText.addFocusListener(this);
 
-        interfaceGUI.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+        interfaceGUI.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         interfaceGUI.setSize(new Dimension(WIDTH, HEIGHT));
         interfaceGUI.setLocationRelativeTo(null);
         interfaceGUI.setVisible(true);
@@ -239,6 +236,7 @@ public class dnevnikTest implements ActionListener, FocusListener {
             }
 
         }
+        driver.quit();
         JFrame second = new JFrame();
         second.setLayout(new GridBagLayout());
         GridBagConstraints gbc = new GridBagConstraints();
@@ -258,6 +256,13 @@ public class dnevnikTest implements ActionListener, FocusListener {
         second.pack();
         second.setLocationRelativeTo(null);
         second.setVisible(true);
+        second.addWindowListener(new WindowAdapter() {
+            @Override
+            public void windowClosing(WindowEvent e) {
+                driver.quit();
+                System.exit(0);
+            }
+        });
         try {
             TimeUnit.HOURS.sleep(1);
         }catch (Exception e){
